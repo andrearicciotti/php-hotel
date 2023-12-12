@@ -48,7 +48,21 @@ if ($_GET['parking'] === 'yes') {
     $parking = '';
 }
 
-var_dump($_GET, $parking);
+if ($_GET['rating'] === '') {
+    $rating = 0;
+} elseif ($_GET['rating'] === '1') {
+    $rating = 1;
+} elseif ($_GET['rating'] === '2') {
+    $rating = 2;
+} elseif ($_GET['rating'] === '3') {
+    $rating = 3;
+} elseif ($_GET['rating'] === '4') {
+    $rating = 4;
+} elseif ($_GET['rating'] === '5') {
+    $rating = 5;
+}
+
+var_dump($_GET, $parking, $rating);
 ?>
 
 <!DOCTYPE html>
@@ -85,6 +99,16 @@ var_dump($_GET, $parking);
                 <option value="yes">Yes</option>
             </select>
 
+            <label for="rating">Rating</label>
+            <select name="rating" id="rating">
+                <option value=""></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+
             <button type="submit">Search</button>
         </form>
 
@@ -101,7 +125,8 @@ var_dump($_GET, $parking);
             <tbody>
                 <?php for ($i = 0; $i < count($hotels); $i++) {
                     $cur_hotel = $hotels[$i];
-                    if ($cur_hotel['parking'] === $parking || $parking === '') { ?>
+                    if($cur_hotel['vote'] >= $rating) {
+                    if($cur_hotel['parking'] === $parking || $parking === '') { ?>
                         <tr>
                             <td><?php echo $cur_hotel['name'] ?></td>
                             <td><?php echo $cur_hotel['description'] ?></td>
@@ -114,7 +139,7 @@ var_dump($_GET, $parking);
                             <td><?php echo $cur_hotel['distance_to_center'] ?> Km.</td>
                         </tr>
                 <?php }
-                } ?>
+                }} ?>
             </tbody>
         </table>
     </div>
