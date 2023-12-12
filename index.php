@@ -55,13 +55,43 @@ $hotels = [
 
 <body>
     <div>
-        <?php foreach($hotels as $hotel) { ?>
-        <h2>Hotel: <?php echo $hotel['name'] ?></h2>
-        <p>Description: <?php echo $hotel['description'] ?></p>
-        <p>Parking: <?php if($hotel['parking'] === true) {echo 'Yes';} else {echo 'No';} ?></p>
-        <p>Vote: <?php echo $hotel['vote'] ?> of 5</p>
-        <p>Distance to center: <?php echo $hotel['distance_to_center'] ?> Km.</p>
+        <?php foreach ($hotels as $hotel) { ?>
+            <h2>Hotel: <?php echo $hotel['name'] ?></h2>
+            <p>Description: <?php echo $hotel['description'] ?></p>
+            <p>Parking: <?php if ($hotel['parking'] === true) {
+                            echo 'Yes';
+                        } else {
+                            echo 'No';
+                        } ?></p>
+            <p>Vote: <?php echo $hotel['vote'] ?> of 5</p>
+            <p>Distance to center: <?php echo $hotel['distance_to_center'] ?> Km.</p>
         <?php } ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Hotel</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Parking</th>
+                    <th scope="col">Vote</th>
+                    <th scope="col">Km. to center</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php for($i = 0; $i < count($hotels); $i++) { $cur_hotel = $hotels[$i] ?>
+                <tr>
+                    <td><?php echo $cur_hotel['name'] ?></td>
+                    <td><?php echo $cur_hotel['description'] ?></td>
+                    <td><?php if ($hotel['parking'] === true) {
+                            echo 'Yes';
+                        } else {
+                            echo 'No';
+                        } ?></td>
+                    <td><?php echo $cur_hotel['vote'] ?> of 5</td>
+                    <td><?php echo $cur_hotel['distance_to_center'] ?> Km.</td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
     </div>
 </body>
 
