@@ -62,7 +62,7 @@ if ($_GET['rating'] === '') {
     $rating = 5;
 }
 
-var_dump($_GET, $parking, $rating);
+// var_dump($_GET, $parking, $rating);
 ?>
 
 <!DOCTYPE html>
@@ -77,8 +77,8 @@ var_dump($_GET, $parking, $rating);
 </head>
 
 <body>
-    <div>
-        <!-- <?php foreach ($hotels as $hotel) { ?>
+    <div class="wrapper">
+        <div> <!-- <?php foreach ($hotels as $hotel) { ?>
             <h2>Hotel: <?php echo $hotel['name'] ?></h2>
             <p>Description: <?php echo $hotel['description'] ?></p>
             <p>Parking: <?php if ($hotel['parking'] === true) {
@@ -89,59 +89,70 @@ var_dump($_GET, $parking, $rating);
             <p>Vote: <?php echo $hotel['vote'] ?> of 5</p>
             <p>Distance to center: <?php echo $hotel['distance_to_center'] ?> Km.</p>
         <?php } ?> -->
+        </div>
 
-        <form action="index.php">
 
-            <label for="parking">Parking</label>
-            <select name="parking" id="parking">
-                <option value=""></option>
-                <option value="no">No</option>
-                <option value="yes">Yes</option>
-            </select>
+        <div class="container">
+            <div class="row">
+                <div class="col-2 text-end ms-auto">
+                    <form action="index.php">
+                        <label class="pe-4" for="parking"><strong>Parking</strong></label>
+                        <select class="form-select m-2" name="parking" id="parking">
+                            <option value=""></option>
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                </div>
+                <div class="col-2 text-start me-auto">
+                    <label class="ps-5" for="rating"><strong>Rating</strong></label>
+                    <select class="form-select m-2" name="rating" id="rating">
+                        <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="col-12 text-center">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                    </form>
+                </div>
 
-            <label for="rating">Rating</label>
-            <select name="rating" id="rating">
-                <option value=""></option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
 
-            <button type="submit">Search</button>
-        </form>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Hotel</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Parking</th>
-                    <th scope="col">Vote</th>
-                    <th scope="col">Km. to center</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php for ($i = 0; $i < count($hotels); $i++) {
-                    $cur_hotel = $hotels[$i];
-                    if($cur_hotel['vote'] >= $rating) {
-                    if($cur_hotel['parking'] === $parking || $parking === '') { ?>
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td><?php echo $cur_hotel['name'] ?></td>
-                            <td><?php echo $cur_hotel['description'] ?></td>
-                            <td><?php if ($cur_hotel['parking'] === true) {
-                                    echo 'Yes';
-                                } else {
-                                    echo 'No';
-                                } ?></td>
-                            <td><?php echo $cur_hotel['vote'] ?> of 5</td>
-                            <td><?php echo $cur_hotel['distance_to_center'] ?> Km.</td>
+                            <th scope="col">Hotel</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Parking</th>
+                            <th scope="col">Vote</th>
+                            <th scope="col">Km. to center</th>
                         </tr>
-                <?php }
-                }} ?>
-            </tbody>
-        </table>
+                    </thead>
+                    <tbody>
+                        <?php for ($i = 0; $i < count($hotels); $i++) {
+                            $cur_hotel = $hotels[$i];
+                            if ($cur_hotel['vote'] >= $rating) {
+                                if ($cur_hotel['parking'] === $parking || $parking === '') { ?>
+                                    <tr>
+                                        <td><?php echo $cur_hotel['name'] ?></td>
+                                        <td><?php echo $cur_hotel['description'] ?></td>
+                                        <td><?php if ($cur_hotel['parking'] === true) {
+                                                echo 'Yes';
+                                            } else {
+                                                echo 'No';
+                                            } ?></td>
+                                        <td><?php echo $cur_hotel['vote'] ?> of 5</td>
+                                        <td><?php echo $cur_hotel['distance_to_center'] ?> Km.</td>
+                                    </tr>
+                        <?php }
+                            }
+                        } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 
