@@ -40,6 +40,15 @@ $hotels = [
 
 ];
 
+if ($_GET['parking'] === 'yes') {
+    $parking = true;
+} elseif ($_GET['parking'] === 'no') {
+    $parking = false;
+} else {
+    $parking = '';
+}
+
+var_dump($_GET, $parking);
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +64,7 @@ $hotels = [
 
 <body>
     <div>
-        <?php foreach ($hotels as $hotel) { ?>
+        <!-- <?php foreach ($hotels as $hotel) { ?>
             <h2>Hotel: <?php echo $hotel['name'] ?></h2>
             <p>Description: <?php echo $hotel['description'] ?></p>
             <p>Parking: <?php if ($hotel['parking'] === true) {
@@ -65,7 +74,20 @@ $hotels = [
                         } ?></p>
             <p>Vote: <?php echo $hotel['vote'] ?> of 5</p>
             <p>Distance to center: <?php echo $hotel['distance_to_center'] ?> Km.</p>
-        <?php } ?>
+        <?php } ?> -->
+
+        <form action="index.php">
+
+            <label for="parking">Parking</label>
+            <select name="parking" id="parking">
+                <option value=""></option>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+
+            <button type="submit">Search</button>
+        </form>
+
         <table class="table">
             <thead>
                 <tr>
@@ -77,19 +99,22 @@ $hotels = [
                 </tr>
             </thead>
             <tbody>
-                <?php for($i = 0; $i < count($hotels); $i++) { $cur_hotel = $hotels[$i] ?>
-                <tr>
-                    <td><?php echo $cur_hotel['name'] ?></td>
-                    <td><?php echo $cur_hotel['description'] ?></td>
-                    <td><?php if ($hotel['parking'] === true) {
-                            echo 'Yes';
-                        } else {
-                            echo 'No';
-                        } ?></td>
-                    <td><?php echo $cur_hotel['vote'] ?> of 5</td>
-                    <td><?php echo $cur_hotel['distance_to_center'] ?> Km.</td>
-                </tr>
-                <?php } ?>
+                <?php for ($i = 0; $i < count($hotels); $i++) {
+                    $cur_hotel = $hotels[$i];
+                    if ($cur_hotel['parking'] === $parking || $parking === '') { ?>
+                        <tr>
+                            <td><?php echo $cur_hotel['name'] ?></td>
+                            <td><?php echo $cur_hotel['description'] ?></td>
+                            <td><?php if ($cur_hotel['parking'] === true) {
+                                    echo 'Yes';
+                                } else {
+                                    echo 'No';
+                                } ?></td>
+                            <td><?php echo $cur_hotel['vote'] ?> of 5</td>
+                            <td><?php echo $cur_hotel['distance_to_center'] ?> Km.</td>
+                        </tr>
+                <?php }
+                } ?>
             </tbody>
         </table>
     </div>
